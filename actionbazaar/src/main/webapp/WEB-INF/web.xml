@@ -22,9 +22,4 @@
     <welcome-file-list>
         <welcome-file>add_bid.jsf</welcome-file>
     </welcome-file-list>
-    <data-source>
-        <name>java:global/jdbc/ActionBazaarDB</name>
-        <class-name>org.h2.jdbcx.JdbcDataSource</class-name>
-        <url>jdbc:h2:/tmp/actionbazaar-development-database</url>
-    </data-source>
 </web-app>
