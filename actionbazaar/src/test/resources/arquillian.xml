@@ -6,12 +6,24 @@
     <engine>
         <property name="deploymentExportPath">target/</property>
     </engine>
-    <container qualifier="chameleon" default="true">
+
+    <container qualifier="chameleon">
         <configuration>
             <property name="chameleonTarget">jboss eap:7.0.0.Final:remote</property>
-            <property name="managementAddress">localhost</property>
-            <property name="username">admin</property>
-            <property name="password">YOUR_JBOSSEAP_PASSWORD</property>
+            <property name="managementAddress">${jboss.address}</property>
+            <property name="managementPort">${jboss.port}</property>
+            <property name="username">${jboss.user}</property>
+            <property name="password">${jboss.pass}</property>
+        </configuration>
+    </container>
+    
+    <container qualifier="weblogic">
+        <defaultProtocol type="Servlet 3.0" />
+        <configuration>
+            <property name="adminUrl">${wls.server}</property>
+            <property name="adminUserName">${wls.user}</property>
+            <property name="adminPassword">${wls.pass}</property>
+            <property name="target">${wls.target}</property>
         </configuration>
     </container>
 </arquillian>
