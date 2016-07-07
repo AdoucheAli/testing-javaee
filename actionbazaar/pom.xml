@@ -10,59 +10,12 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     
-    <profiles>
-        <profile>
-            <id>jboss</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <jboss.address>localhost</jboss.address>
-                <jboss.port>9990</jboss.port>
-                <jboss.user>admin</jboss.user>
-                <jboss.pass>jboss</jboss.pass>
-            </properties>
-            
-            <repositories>
-                <repository>
-                    <id>jboss-public-repository-group</id>
-                    <url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
-                </repository>
-            </repositories>
-            
-            <dependencies>
-                <dependency>
-                    <groupId>org.arquillian.container</groupId>
-                    <artifactId>arquillian-container-chameleon</artifactId>
-                    <version>1.0.0.Alpha6</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-
-        <profile>
-            <id>weblogic</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-
-            <properties>
-                <wls.server>http://localhost:8080</wls.server>
-                <wls.user>weblogic</wls.user>
-                <wls.pass>welcome1</wls.pass>
-                <wls.target>AdminServer</wls.target>
-            </properties>
-            
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-wls-remote-rest</artifactId>
-                    <version>1.0.1.Final</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
+    <properties>
+        <wls.server>http://localhost:7001</wls.server>
+        <wls.user>weblogic</wls.user>
+        <wls.pass>welcome1</wls.pass>
+        <wls.target>AdminServer</wls.target>
+    </properties>
     
     <dependencyManagement>
         <dependencies>
@@ -91,6 +44,12 @@
     </dependencyManagement>
     
     <dependencies>
+        <dependency>
+            <groupId>org.jboss.arquillian.container</groupId>
+            <artifactId>arquillian-wls-remote-rest</artifactId>
+            <version>1.0.1.Final</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
