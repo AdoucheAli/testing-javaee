@@ -5,12 +5,14 @@ import com.actionbazaar.application.DefaultBidService;
 import com.actionbazaar.domain.Bid;
 import com.actionbazaar.domain.BidRepository;
 import com.actionbazaar.infrastructure.database.DefaultBidRepository;
+import java.net.URL;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import static org.junit.Assert.assertEquals;
@@ -24,6 +26,9 @@ import org.junit.runner.RunWith;
 public class BidRestServiceTest {
 
     private static Long bidId;
+
+    @ArquillianResource
+    URL contextPath;
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -43,7 +48,7 @@ public class BidRestServiceTest {
     @InSequence(1)
     public void testAddBid() {
         WebTarget target = ClientBuilder.newClient()
-                .target("http://localhost:8080/actionbazaar-rest-test/rest/bids");
+                .target(contextPath + "rest/bids");
         // Save a new bid.
         Bid bid = new Bid();
 
@@ -68,7 +73,7 @@ public class BidRestServiceTest {
     @InSequence(2)
     public void testUpdateBid() {
         WebTarget target = ClientBuilder.newClient()
-                .target("http://localhost:8080/actionbazaar-rest-test/rest/bids/{id}")
+                .target(contextPath + "rest/bids/{id}")
                 .resolveTemplate("id", bidId);
 
         // Update bid.
@@ -90,7 +95,7 @@ public class BidRestServiceTest {
     @InSequence(3)
     public void testDeleteBid() {
         WebTarget target = ClientBuilder.newClient()
-                .target("http://localhost:8080/actionbazaar-rest-test/rest/bids/{id}")
+                .target(contextPath + "rest/bids/{id}")
                 .resolveTemplate("id", bidId);
 
         target.request().delete();

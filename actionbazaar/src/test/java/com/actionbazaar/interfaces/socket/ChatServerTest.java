@@ -42,6 +42,7 @@ package com.actionbazaar.interfaces.socket;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,6 +59,7 @@ import javax.websocket.Session;
 import javax.websocket.WebSocketContainer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import static org.junit.Assert.assertEquals;
@@ -74,6 +76,9 @@ public class ChatServerTest {
 
     private static ChatMessage testMessage;
     private static ChatMessage testReply;
+    
+    @ArquillianResource
+    URL contextPath;
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -85,7 +90,7 @@ public class ChatServerTest {
 
     @Test
     public void testChat() throws URISyntaxException, DeploymentException, IOException, InterruptedException {
-        URI uri = new URI("ws://localhost:8080/actionbazaar-websocket-test/chat");
+        URI uri = new URI("ws://"+contextPath.getHost()+":"+contextPath.getPort()+"/actionbazaar-websocket-test/chat");
 
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
 
